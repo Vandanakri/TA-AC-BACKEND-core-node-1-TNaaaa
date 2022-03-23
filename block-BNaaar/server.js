@@ -3,17 +3,21 @@ var http = require('http');
 var server = http.createServer(handleRequest);
 
 function handleRequest(req, res) {
-  var parsedUrl = url.parse(req.url);
-  var pathname = parsedUrl.pathname;
 
-  if(req.method = 'GET' && req.url = '/')
+  if (req.method === 'GET' && req.url === '/') {
+    res.write('Welcome to Index Page');
+    res.end();
+  }
+  else if (req.method === 'GET' && req.url === '/about') {
+    res.setHeader('Content-Type', 'text/html');
+    res.end('<h2>this is all about NodeJS</h2>')
+  }
+  else if (req.method === 'POST' && req.url === '/about') {
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(`{message: this is a post request}`));
+  }
 
-
-
-  console.log(req.method,req.url,req.headers);
-  res.end('Hello Vandana')
 }
-
-server.listen(3000, () => {
-  console.log('server listening on port 4000')
-})
+server.listen(5000, () => {
+  console.log('server listening on port 5k')
+});
